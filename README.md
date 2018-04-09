@@ -15,15 +15,14 @@ Similar to AlphaGo Zero:
 - no human-engineered features or logic
 
 Different from AlphaGo Zero:
-- uses Deep Q Learning
+- uses Deep Q Learning (as opposed to the Monte Carlo Tree Search variation of Policy Improvement used by AGZ)
 - uses a shallow keras FF network (instead of a deep residual network in the case of AGZ)
 - uses single matrix for representing board instead of a multi-layer matrix like AGZ
 - adjusts representation of board depending on turn side, as opposed to AlphaGo Zero which inputs side to the network
-- does not perform any Monte-Carlo Tree Search, 
-- probably 
+- probably many other things
 
 Agents:
-- ChaosAgent: Epsilon-greedy during play (not just during training)
+- ChaosAgent: Same as DQNAgent, but Epsilon-greedy during play (not just during training)
 - DQNAgent: Double-Deep Q-Learning agent trained with keras-rl
 - RandomAgent: always plays a random (but valid) move
 - HumanAgent: takes keyboard input
