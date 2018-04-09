@@ -23,9 +23,9 @@ Similar to AZ/AGZ:
 - no human-engineered features or logic
 
 Different from AZ/AGZ:
-- uses Deep Q Learning (as opposed to the Monte Carlo Tree Search variation of Policy Improvement used by AZ/AGZ)
-- AGZ used rotated/reflected board positions to increase sample efficiency.  AZ does not do this.  AlphaXos does not currently do this.
-- uses a shallow keras FF network (instead of a deep residual network in the case of AGZ; it is not clear what architecture was used for AZ)
+- AX uses Double Deep Q Learning (via keras-rl), as opposed to the novel Monte Carlo Tree Search variation of Policy Improvement used by AZ/AGZ, which I think was the meat of their contribution
+- AGZ used rotated/reflected board positions to increase sample efficiency.  AZ did not do this.  AlphaXos does not currently do this.
+- uses a simple shallow keras FF network (instead of a deep residual convolutional network in the case of AGZ; it is not clear what architecture was used for AZ)
 - uses single 2D matrix for representing board including both players, instead of a multi-layer matrix like AZ/AGZ
 - adjusts representation of board depending on turn side, as opposed to AGZ which provides turn side as input to the network
 - probably many other things!
