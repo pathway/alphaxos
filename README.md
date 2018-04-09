@@ -17,17 +17,17 @@ Agents:
 
 Similar to AlphaGo Zero:
 - reinforcement learning for a binary board game
-- game state represented via input matrix
+- game state represented via board input matrix
 - uses single neural network, instead of separate policy and value networks like earlier AlphaGos
-- learns entirely from self-play (in the case of AlphaXos, also learns from play against purely random player)
+- learns entirely from self-play (in the case of AlphaXos, also learns from play against purely random player, as well as self-play)
 - no human-engineered features or logic
 
 Different from AGZ:
 - uses Deep Q Learning (as opposed to the Monte Carlo Tree Search variation of Policy Improvement used by AGZ)
 - uses a shallow keras FF network (instead of a deep residual network in the case of AGZ)
 - uses single matrix for representing board instead of a multi-layer matrix like AGZ
-- adjusts representation of board depending on turn side, as opposed to AlphaGo Zero which inputs side to the network
-- probably many other things
+- adjusts representation of board depending on turn side, as opposed to AlphaGo Zero which provides turn side as input to the network
+- probably many other things!
 
 ### Next steps
 
