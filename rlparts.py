@@ -70,7 +70,7 @@ class HumanAgent(object):
 	def act(self, observation, reward, done):
 		print(observation)
 		mx = self.action_space.n
-		rm = input("Move 1 to %s: " % str(mx+1))
+		rm = input("Move 1 to %s: " % str(mx))
 		rm = int(rm)-int('1')
 		return rm
 
@@ -199,11 +199,11 @@ class Regime():
 		Set environment oppenent.agent to Human
 		'''
 
+		self.env.reset()
+		board = self.env.obs()
+		self.env.opponent_agent = self.human_agent  # RandomAgent(env.action_space)
 
 		while True:
-			self.env.reset()
-			board = self.env.obs()
-			self.env.opponent_agent = self.human_agent  # RandomAgent(env.action_space)
 
 			# player 1
 			# print("PLAYER 1")
@@ -217,7 +217,11 @@ class Regime():
 
 			print("reward:", reward)
 
-			print('======= REMATCH! ========')
+			if reward!=0.0:
+				self.env.reset()
+				board = self.env.obs()
+				self.env.opponent_agent = self.human_agent  # RandomAgent(env.action_space)
+				print('======= REMATCH! ========')
 
 
 	def train_random(self):
