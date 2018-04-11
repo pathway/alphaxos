@@ -42,6 +42,7 @@ Different from AZ/AGZ:
 - Keras-RL: https://github.com/keras-rl/keras-rl
 - Keras: https://keras.io/
 - DQNs: https://www.nature.com/articles/nature14236
+- Double DQN: https://arxiv.org/abs/1509.06461
 
 Copyright (c) 2018 Robin Chauhan
 
