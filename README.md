@@ -18,7 +18,7 @@ Agents:
 Similar to AZ/AGZ:
 - reinforcement learning for a binary board game
 - game state represented via board input matrix
-- uses single neural network, instead of separate policy and value networks like earlier AlphaGos
+- uses single neural network (aside from the fact it uses double DQN), instead of separate policy and value networks like earlier AlphaGos
 - learns entirely from self-play (in the case of AlphaXos, also learns from play against purely random player, as well as self-play)
 - no human-engineered features or logic
 
