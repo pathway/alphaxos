@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>AlphaXos</title>
+
+      <style>
+.cell {
+    float:left; height:{{ sqsz }}px; width:{{ sqsz }}px;
+    border:1px solid black; padding:5px; margin: 5px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.cell-human {
+    background-image: url('{{ player_self.icon_url }}');
+}
+.cell-opponent{
+    background-image: url('{{ char.icon_url }}');
+
+      </style>
+
+  </head>
+  <body>
+
+  <div class="container">
+  <div class="row">
+  <div class="col-12">
+
+      <!--
+      background-color:
+        -->
+      <br>
+      Player 1:
+      <a class="btn btn-primary btn-lg" href="/?cmd=reset&op1=human">Human</a>
+      <a class="btn btn-primary btn-lg" href="/?cmd=reset&op1=random">Twiki</a>
+      <a class="btn btn-primary btn-lg" href="/?cmd=reset&op1=countchocula">The Count</a>
+      <a class="btn btn-warning btn-lg" href="/?cmd=reset&op1=dqn_opponent">Dqn</a>
+      <a class="btn btn-warning btn-lg" href="/?cmd=reset&op1=wrapper_opponent">Wrapper</a>
+      <a class="btn btn-info btn-lg" href="/?cmd=reset&op1=chaos">Chaos</a>
+      <br><br>
+
+      Player 2:
+      <a class="btn btn-primary btn-lg" href="/?cmd=reset&op2=random">Twiki</a>
+      <a class="btn btn-primary btn-lg" href="/?cmd=reset&op2=countchocula">The Count</a>
+      <a class="btn btn-warning btn-lg" href="/?cmd=reset&op2=dqn_opponent">Dqn</a>
+      <a class="btn btn-warning btn-lg" href="/?cmd=reset&op2=wrapper_opponent">Wrapper</a>
+      <a class="btn btn-info btn-lg" href="/?cmd=reset&op2=chaos">Chaos</a>
+      <br>
+
+      <br>
+
+      <h1><img height=50 width=50 src="{{ player_self.icon_url }}">{{ player_self.name }} vs <img height=50 width=50 src="{{ char.icon_url }}">{{ char.name}}</h1>
+
+{% for cell in board  %}
+      {% if cell== 0 %}<a href="/?move={{ loop.index0 }}">{% endif %}<div class="cell {% if cell> 0 %}cell-human{% endif %}{% if cell< 0 %}cell-opponent{% endif %} {% if cell== 0 %}btn btn-primary{% endif %} ">
+        <div style="height:10px; {% if q_values[loop.index0] < 0 %}width: {{ (q_values[loop.index0] * -15) }}px; background-color:red;{% else %}width: {{ (q_values[loop.index0] * 50) }}px;  background-color: green;{% endif %};"></div>
+    </div>{% if cell== 0 %}</a> {% endif %}&nbsp;
+{% if loop.index% wrapcount ==0 %}
+<div style="clear:both;"></div>
+{% endif %}
+{% endfor %}
+
+      {% if player!='human' %}<a class="btn btn-info btn-lg" href="{% if done %}/?cmd=reset{% else %}/{% endif %}">{% if done %}Reset{% else %}Next move{% endif %}</a><br>{% endif %}
+      {% if player=='human' and done %}<a class="btn btn-primary btn-lg" href="/?cmd=reset">Restart</a><br>{% endif %}
+
+Done: {{done }}<br>
+Reward: {{reward}}<br>
+Info: {{info}}<br>
+
+      {% if not done  and player=='human' %} <h2>your turn, hooman :)</h2><br> <img src="https://www.devwalks.com/content/images/2015/06/YourTurn-1.png"> {% endif %}
+      {% if done and reward>0.0  %} <h2>*{{ player_self.name }}* win!?! :)</h2><br> <img src="https://media.giphy.com/media/McL8Gf7q6LAY0/giphy.gif"> {% endif %}
+      {% if done and reward<0.0  %} <h2>{{ char.name}} got the moves!</h2> <br> <img src="https://media.giphy.com/media/snA2OVsg9sMRW/giphy.gif"> {% endif %}
+      {% if done and reward==0.0  %} <h2>tie! *shrug*</h2><br> <img src="https://i.pinimg.com/originals/d2/6f/73/d26f73f02c1cc6fc53ccd510354fa807.gif"> {% endif %}
+
+<br><br><br>
+      alphaxos
+<a href="https://www.github.com/pathway/alphaxos">github</a>
+<a href="https://pathwayi.com/">pathway</a>
+alphaxos (c) 2018 robin chauhan
+        </div>
+  </div>
+  </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
+
