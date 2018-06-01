@@ -1,5 +1,8 @@
 # AlphaXos
 
+## Project status
+- experimental!
+
 ### Self play with Deep Reinforcement Learning: Deep Q-Learning using Xs and Os in an Open AI Gym-like Environment
 
 What?
