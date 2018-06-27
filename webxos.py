@@ -12,6 +12,13 @@ app = Flask(__name__)
 
 regime=None
 
+global env
+global env_label
+global board_template
+
+env=None
+env_label='xos'
+
 def webxos_reset(envtype):
 	global board
 	global regime
@@ -32,8 +39,29 @@ def webxos_reset(envtype):
 	board = regime.test_human_web_init(op2)
 
 
-env = C4Env()
-webxos_reset(env)
+def reset_env():
+	global env
+	global env_label
+	global board_template
+	global sqsz
+
+	if not env: env_label='xos'
+	new_env = False
+	if env_label == 'c4':
+		env = C4Env()
+		new_env = True
+		board_template = 'c4.html'
+		sqsz = 100
+	elif env_label == 'xos':
+		env = XosEnv()
+		new_env = True
+		board_template = 'board.html'
+		sqsz = 200
+
+	if new_env: webxos_reset(env)
+
+
+reset_env()
 
 
 
@@ -46,11 +74,19 @@ def text_classification():
 	global info
 	global op2
 	global player
+	global env
+	global env_label
+	global board_template
+	global sqsz
+
 
 	command = request.args.get('cmd',default=None,type=str)
 	q_values = None
 
 	if command == "reset":
+		env_label = request.args.get('env', default=None, type=str)
+		if env_label: reset_env()
+
 		player_temp = request.args.get('op1', default=None, type=str)
 		if player_temp:
 			player=player_temp
@@ -80,6 +116,7 @@ def text_classification():
 	board_items=[]
 	for col in range(0,env.ht):
 		for row in range(0, env.wid):
+			print(col,row,board)
 			cell=board[col][row]
 			board_items.append(cell)
 	print(board)
@@ -100,8 +137,5 @@ def text_classification():
 		info['q_values']=[0,] * nq
 	print(info['q_values'])
 
-	#board_template='board.html'
-	board_template='c4.html'
-
-	return render_template(board_template, board=board_items,done=done,reward=reward,info=info,op=op2,player=player,player_self=player_self,char=char,q_values=info['q_values'],sqsz=100,wrapcount=env.wid)
+	return render_template(board_template, board=board_items,done=done,reward=reward,info=info,op=op2,player=player,player_self=player_self,char=char,q_values=info['q_values'],sqsz=sqsz,wrapcount=env.wid)
 

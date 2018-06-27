@@ -127,6 +127,7 @@ class BinaryBoardEnv(Env):
 		board = None
 
 		self.board = np.zeros((self.ht , self.wid))
+		#print('BOARD1: ',self.board)
 		self.self_side=1
 		self.turn_side=randint(0,1)*-2 + 1
 		self.turn_count=0
@@ -142,6 +143,7 @@ class BinaryBoardEnv(Env):
 			#action = self.opponent_agent.forward(self.board)
 
 			# tensorforce lingo
+			#print(self.opponent_agent)
 			action = self.opponent_agent.act(self.board)
 			board, reward, done, info = self._step(action, -1)
 			self.turn_side=1
@@ -151,7 +153,7 @@ class BinaryBoardEnv(Env):
 		return self.obs()
 
 	def obs(self):
-		return self.board.flatten()
+		return self.board #.flatten()
 
 
 
@@ -205,7 +207,7 @@ class BinaryBoardEnv(Env):
 			#	...
 
 			#print(self.board)
-			if self.tumbler:
+			if False:  # rotate / reflect via self.tumbler:
 				tmbl = random.randint(0,8)
 				if tmbl==0:
 					pass
@@ -277,7 +279,7 @@ class XosEnv(BinaryBoardEnv):
 			return False
 
 		if action<0 or action>self.wid*self.ht-1:
-			print('Invalid action, move location %d out of range' % action)
+			#print('Invalid action, move location %d out of range' % action)
 			return False   #
 
 		row = action // self.wid
@@ -306,6 +308,7 @@ class XosEnv(BinaryBoardEnv):
 
 		if not self.action_is_valid(action):
 			#print('invalid action penalty %d'% action)
+			#print(self.board)
 			invalid_side = side
 
 			# dont punish us for opponent's move
@@ -448,14 +451,15 @@ class C4Env(BinaryBoardEnv):
 	def action_is_valid(self,action):
 		#print(action)
 		if self.done:
-			#print("No more moves, Game over")
+			#print('Invalid action: No more moves, Game over')
 			return False
 
 		if action<0 or action>self.wid-1:
-			print('Invalid action, move location out of range')
+			#print('Invalid action: move location out of range')
 			return False   #
 
 		if self.colfull(action):
+			#print('Invalid action: colfull')
 			self.invalid+=1
 			return False
 
@@ -531,7 +535,9 @@ class C4Env(BinaryBoardEnv):
 
 	def colfull(self,col):
 		c = self.board[:,col]
-		if np.sum(np.absolute(c)) == self.ht:
+		colsum = np.sum(np.absolute(c))
+		if colsum == self.ht:
+			#print('Colfull: ',c,colsum,self.ht)
 			return True
 		return False
 

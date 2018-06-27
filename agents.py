@@ -48,9 +48,9 @@ class RandomAgent(BaseAgent):
 		#print(self.action_space)
 
 	def forward(self,observation):
-		return self.act(observation,None,None)
+		return self.act(observation)
 
-	def act(self, observation, reward, done):
+	def act(self, observation):
 		rm = random.randint(0, self.action_space.n - 1)
 		while not self.env.action_is_valid(rm):
 			rm = random.randint(0, self.action_space.n - 1)
@@ -72,9 +72,9 @@ class CountChoculaAgent(BaseAgent):
 	# print(self.action_space)
 
 	def forward(self, observation):
-		return self.act(observation, None, None)
+		return self.act(observation)
 
-	def act(self, observation, reward, done):
+	def act(self, observation):
 		for i in range(0, self.action_space.n):
 			if self.env.action_is_valid(i):
 				return i
@@ -94,7 +94,7 @@ class HumanAgent(BaseAgent):
 	def forward(self,observation):
 		return self.act(observation,None,None)
 
-	def act(self, observation, reward, done):
+	def act(self, observation):
 		print(observation)
 		mx = self.action_space.n
 		rm = input("Move 1 to %s: " % str(mx))
@@ -137,9 +137,9 @@ class WrapperAgent(BaseAgent):
 	# print(self.action_space)
 
 	def forward(self, observation):
-		return self.act(observation, None, None)
+		return self.act(observation)
 
-	def act(self, observation, reward, done):
+	def act(self, observation):
 		a = self.smart_agent.forward(observation)
 		self.q_values = self.smart_agent.q_values
 		return a
@@ -174,17 +174,17 @@ class ChaosDqnAgent(BaseAgent):
 	# print(self.action_space)
 
 	def forward(self, observation):
-		return self.act(observation, None, None)
+		return self.act(observation)
 
-	def act(self, observation, reward, done):
+	def act(self, observation):
 		if random.random() < self.random_ratio:
-			return self.random_act(observation, None, None)
+			return self.random_act(observation)
 		else:
 			a = self.smart_agent.forward(observation)
 			self.q_values = self.smart_agent.q_values
 			return a
 
-	def random_act(self, observation, reward, done):
+	def random_act(self, observation):
 		rm = random.randint(0, self.action_space.n - 1)
 		while not self.env.action_is_valid(rm):
 			rm = random.randint(0, self.action_space.n - 1)
@@ -195,17 +195,10 @@ class ChaosDqnAgent(BaseAgent):
 
 class DeltaChaosDqnAgent(BaseAgent):
 	'''
-	This agent does Epsilon-greedy-ish rollouts.
+	This agent does "Delta-Epsilon-greedy"-ish rollouts.
 
-	The purpose is to ensure that competing DQNs do not get trapped in mutual local minima.
-	Adding a random element prevents competely closing off any state pathways.
-
-	Maybe more importantly, it also is an example of composing agents from others.
-
-	It wraps "smart_agent" (eg. a DQN or other agent).
-
-	Note it is not precisely Epsilon-Greedy, but rather Valid-Epsilon-Greedy,
-	its choice of random move are limited to valid moves given the current board state.
+	Which I should change.
+	TODO: change
 	'''
 
 	smart_agent = None
@@ -223,10 +216,10 @@ class DeltaChaosDqnAgent(BaseAgent):
 	def forward(self, observation):
 		return self.act(observation, None, None)
 
-	def act(self, observation, reward, done):
+	def act(self, observation ):
 		if random.random() < self.random_ratio:
 			# implement epsilon exploration
-			return self.random_act(observation, None, None)
+			return self.random_act(observation )
 		else:
 			a = self.smart_agent.forward(observation)
 
@@ -251,7 +244,7 @@ class DeltaChaosDqnAgent(BaseAgent):
 			self.smart_agent.recent_action = a
 			return a
 
-	def random_act(self, observation, reward, done):
+	def random_act(self, observation ):
 		rm = random.randint(0, self.action_space.n - 1)
 		while not self.env.action_is_valid(rm):
 			rm = random.randint(0, self.action_space.n - 1)
@@ -260,12 +253,12 @@ class DeltaChaosDqnAgent(BaseAgent):
 
 
 
-
+'''
 class TensorForceAgent(BaseAgent):
-	'''
+	' ''
 	It wraps "smart_agent" tensorforce ag (eg. a DQN or other agent).
 	smart_agent should have a load_weights()
-	'''
+	' ''
 
 	smart_agent = None
 	env = None
@@ -302,7 +295,7 @@ class TensorForceAgent(BaseAgent):
 		self.q_values = self.smart_agent.q_values
 		return a
 
-
+'''
 
 
 

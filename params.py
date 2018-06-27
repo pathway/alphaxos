@@ -1,13 +1,17 @@
-env_label='c4'
-dqn_label='c4_dqn3'
+if 0:
+	env_label='c4'
+	dqn_label='c4_dqn3'
+else:
+	env_label='xos'
+	dqn_label='dqn8'
 
 regime_params_base = {
 	'env': env_label, 'dqn_kind': dqn_label,
 	'gamma': 0.99,
-	'epsilon-train': 0.5,
-	'epsilon-chaos': 0.5,
+	'epsilon-train': 0.1,
+	'epsilon-chaos': 0.1,
 	'delta_window':0.1,
-	'learning_rate': 1e-3,
+	'learning_rate': 1e-1,
 	'memory_batch_size': 128, 'steps_warmup': 100, 'steps_target_model_update': 100, 'steps_per_iter': 300,
 	'test_rounds': 50,
 	'memory_iterations_per_save': 3,
@@ -22,9 +26,9 @@ regime_params_wakeup = {
 
 
 regime_params_early = {
-	'epsilon-train':0.5,
-	'epsilon-chaos':0.5,
-	'learning_rate': 1e-4,
+	'epsilon-train':0.1,
+	'epsilon-chaos':0.1,
+	'learning_rate': 1e-3,
 	'test_rounds': 100,
 
 }
@@ -62,9 +66,9 @@ def merge_two_dicts(x, y):
     return z
 
 
-# = regime_params_wakeup
-#r = regime_params_early
-r = regime_params_late
+#r = regime_params_wakeup
+r = regime_params_early
+#r = regime_params_late
 #r = regime_params_final
 #r = regime_params_eternal
 #r = regime_params_cust

@@ -19,9 +19,11 @@
 }
 
 .cell-human {
+    border:10px solid purple;
     background-image: url('{{ player_self.icon_url }}');
 }
 .cell-opponent{
+    border:10px solid orange;
     background-image: url('{{ char.icon_url }}');
 
       </style>
@@ -36,22 +38,26 @@
       <!--
       background-color:
         -->
+      Game:
+      <a class="btn btn-sm btn-info" href="/?cmd=reset&env=xos">Xos</a>
+      <a class="btn btn-sm btn-info" href="/?cmd=reset&env=c4">C4</a>
+
       <br>
       Player 1:
-      <a class="btn btn-primary btn-lg" href="/?cmd=reset&op1=human">Human</a>
-      <a class="btn btn-primary btn-lg" href="/?cmd=reset&op1=random">Twiki</a>
-      <a class="btn btn-primary btn-lg" href="/?cmd=reset&op1=countchocula">The Count</a>
-      <a class="btn btn-warning btn-lg" href="/?cmd=reset&op1=dqn_opponent">Dqn</a>
-      <a class="btn btn-warning btn-lg" href="/?cmd=reset&op1=wrapper_opponent">Wrapper</a>
-      <a class="btn btn-info btn-lg" href="/?cmd=reset&op1=chaos">Chaos</a>
+      <a class="btn btn-primary btn-sm" href="/?cmd=reset&op1=human">Hooman</a>
+      <a class="btn btn-primary btn-sm" href="/?cmd=reset&op1=random">Twiki</a>
+      <a class="btn btn-primary btn-sm" href="/?cmd=reset&op1=countchocula">The Count</a>
+      <a class="btn btn-warning btn-sm" href="/?cmd=reset&op1=dqn_opponent">Dqn</a>
+      <a class="btn btn-warning btn-sm" href="/?cmd=reset&op1=wrapper_opponent">Wrapper</a>
+      <a class="btn btn-info btn-sm" href="/?cmd=reset&op1=chaos">Chaos</a>
       <br><br>
 
       Player 2:
-      <a class="btn btn-primary btn-lg" href="/?cmd=reset&op2=random">Twiki</a>
-      <a class="btn btn-primary btn-lg" href="/?cmd=reset&op2=countchocula">The Count</a>
-      <a class="btn btn-warning btn-lg" href="/?cmd=reset&op2=dqn_opponent">Dqn</a>
-      <a class="btn btn-warning btn-lg" href="/?cmd=reset&op2=wrapper_opponent">Wrapper</a>
-      <a class="btn btn-info btn-lg" href="/?cmd=reset&op2=chaos">Chaos</a>
+      <a class="btn btn-primary btn-sm" href="/?cmd=reset&op2=random">Twiki</a>
+      <a class="btn btn-primary btn-sm" href="/?cmd=reset&op2=countchocula">The Count</a>
+      <a class="btn btn-warning btn-sm" href="/?cmd=reset&op2=dqn_opponent">Dqn</a>
+      <a class="btn btn-warning btn-sm" href="/?cmd=reset&op2=wrapper_opponent">Wrapper</a>
+      <a class="btn btn-info btn-sm" href="/?cmd=reset&op2=chaos">Chaos</a>
       <br>
 
       <br>
