@@ -3,12 +3,13 @@
 ## Project status
 - experimental!
 
-### Self play with Deep Reinforcement Learning: Deep Q-Learning using Xs and Os in an Open AI Gym-like Environment
+### Self play with Deep Reinforcement Learning: Deep Q-Learning using board games in an Open AI Gym-like Environment
 
 What?
 - Concise working example of self-play Deep Q-Learning
 - You may find it a useful example in discussing and understanding Alpha Zero / AlphaGo Zero (AZ/AGZ)
 - Environment similar to those in OpenAI gym at gym/envs/toy_text/ 
+- General approach to piece-placement board games
 
 Agents:
 - ChaosAgent: Same as DQNAgent, but Epsilon-greedy during play (not just during training)
