@@ -7,7 +7,7 @@
 
 What?
 - Concise working example of self-play Deep Q-Learning
-- You may find it a useful example in discussing and understanding Alpha Zero / AlphaGo Zero (AZ/AGZ)
+- You may find it a useful example in contrast to Alpha Zero / AlphaGo Zero (AZ/AGZ)
 - Environment similar to those in OpenAI gym at gym/envs/toy_text/ 
 - General approach to piece-placement board games
 
@@ -18,6 +18,8 @@ Agents:
 - HumanAgent: takes keyboard input
 
 ### Comparison with AlphaZero / AlphaGo Zero
+
+There is no tree search here, its just one-step DQN for now.  So a completely different type of RL (model-free) than AlphaZero (model-based with tree search).
 
 Similar to AZ/AGZ:
 - reinforcement learning for a binary board game
